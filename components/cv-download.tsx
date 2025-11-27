@@ -4,17 +4,38 @@ import { Download } from 'lucide-react'
 import { getAssetPath } from "@/lib/utils"
 
 export default function CVDownload() {
-  const handleDownload = (language: 'fr' | 'en') => {
+  const handleDownload = async (language: 'fr' | 'en') => {
     const filename = language === 'fr' 
       ? 'CV ELKIHEL SALAH-EDDINE-FR.pdf'
       : 'CV ELKIHEL SALAH-EDDINE-AN.pdf'
     
-    const link = document.createElement('a')
-    link.href = getAssetPath(`/${encodeURIComponent(filename)}`)
-    link.download = filename
-    document.body.appendChild(link)
-    link.click()
-    document.body.removeChild(link)
+    try {
+      // Construire le chemin complet avec basePath
+      const filePath = getAssetPath(`/${filename}`)
+      
+      // Essayer de télécharger le fichier
+      const response = await fetch(filePath)
+      if (!response.ok) {
+        throw new Error(`Erreur ${response.status}: ${response.statusText}`)
+      }
+      
+      const blob = await response.blob()
+      const url = window.URL.createObjectURL(blob)
+      
+      const link = document.createElement('a')
+      link.href = url
+      link.download = filename
+      document.body.appendChild(link)
+      link.click()
+      
+      // Nettoyer
+      window.URL.revokeObjectURL(url)
+      document.body.removeChild(link)
+    } catch (error) {
+      console.error('Erreur lors du téléchargement:', error)
+      // Fallback: essayer d'ouvrir le fichier dans un nouvel onglet
+      window.open(getAssetPath(`/${filename}`), '_blank')
+    }
   }
 
   return (
