@@ -1,6 +1,7 @@
 "use client"
 
 import { Download } from 'lucide-react'
+import { getAssetPath } from "@/lib/utils"
 
 export default function CVDownload() {
   const handleDownload = (language: 'fr' | 'en') => {
@@ -8,9 +9,8 @@ export default function CVDownload() {
       ? 'CV ELKIHEL SALAH-EDDINE-FR.pdf'
       : 'CV ELKIHEL SALAH-EDDINE-AN.pdf'
     
-    const basePath = process.env.NEXT_PUBLIC_BASE_PATH || ''
     const link = document.createElement('a')
-    link.href = `${basePath}/${encodeURIComponent(filename)}`
+    link.href = getAssetPath(`/${encodeURIComponent(filename)}`)
     link.download = filename
     document.body.appendChild(link)
     link.click()

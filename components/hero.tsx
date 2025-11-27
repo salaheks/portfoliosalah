@@ -1,6 +1,7 @@
 "use client"
 
 import Image from "next/image"
+import { getAssetPath } from "@/lib/utils"
 
 export default function Hero() {
   return (
@@ -21,7 +22,7 @@ export default function Hero() {
                     SALAH EDD
                     <span className="inline-flex items-center gap-0 mx-1 align-middle hover-lift">
                       <Image
-                        src="/linkedin-logo.png"
+                        src={getAssetPath("/linkedin-logo.png")}
                         alt="LinkedIn"
                         width={24}
                         height={24}
@@ -75,7 +76,7 @@ export default function Hero() {
             <div className="relative w-80 h-80 md:w-96 md:h-96 hover-lift">
               <div className="absolute inset-0 bg-gradient-to-br from-primary to-accent rounded-2xl opacity-10 animate-glow"></div>
               <Image
-                src="/salah-elkihel-profile.jpg"
+                src={getAssetPath("/salah-elkihel-profile.jpg")}
                 alt="Salah Eddine - Full-Stack Developer"
                 width={400}
                 height={400}
