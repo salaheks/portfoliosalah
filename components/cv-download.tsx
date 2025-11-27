@@ -8,8 +8,9 @@ export default function CVDownload() {
       ? 'CV ELKIHEL SALAH-EDDINE-FR.pdf'
       : 'CV ELKIHEL SALAH-EDDINE-AN.pdf'
     
+    const basePath = process.env.NEXT_PUBLIC_BASE_PATH || ''
     const link = document.createElement('a')
-    link.href = `/${encodeURIComponent(filename)}`
+    link.href = `${basePath}/${encodeURIComponent(filename)}`
     link.download = filename
     document.body.appendChild(link)
     link.click()
